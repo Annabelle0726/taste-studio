@@ -1,0 +1,4 @@
+interface:
+  display_name: "Taste Studio"
+  short_description: "Explore UI directions and refine a chosen theme"
+  default_prompt: "Use $taste-studio to explore distinct visual directions for one key screen in my product."
