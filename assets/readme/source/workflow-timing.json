@@ -1,0 +1,11 @@
+{
+  "frames": [
+    "workflow-1.svg",
+    "workflow-2.svg",
+    "workflow-3.svg",
+    "workflow-4.svg"
+  ],
+  "hold_ms": 3000,
+  "transition_ms": 400,
+  "loop": true
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Taste Studio</title>
+  <desc id="desc">红纱穿过两幅页面设计，连接探索与选择。用多种草图探索设计，让人的感受指明方向。</desc>
+  <defs>
+    <linearGradient id="silk-fade"><stop stop-color="white" stop-opacity="0"/><stop offset=".45" stop-color="white"/><stop offset="1" stop-color="white"/></linearGradient>
+    <mask id="silk-mask"><rect width="1200" height="680" fill="url(#silk-fade)"/></mask>
+    <clipPath id="canvas"><rect width="1200" height="680"/></clipPath>
+  </defs>
+  <g clip-path="url(#canvas)">
+    <rect width="1200" height="680" fill="#faf5eb"/>
+    <image href="../../silk.webp" x="-100" y="15" width="1450" height="645" preserveAspectRatio="xMidYMid slice" mask="url(#silk-mask)" opacity=".76"/>
+    <text x="58" y="68" fill="#6a5951" font-family="SimSun,serif" font-size="22">让每个人的感受，为设计指明方向</text>
+    <g fill="#591026" font-family="Georgia,serif" font-size="112" letter-spacing="-5">
+      <text x="53" y="213">Taste</text>
+      <text x="53" y="325">Studio</text>
+    </g>
+    <path d="M241 346 C292 369 316 312 365 330" fill="none" stroke="#ae8753" stroke-width="2"/>
+    <g fill="#30251f" font-family="SimSun,serif" font-size="28">
+      <text x="58" y="432">先看见不同的可能，</text>
+      <text x="58" y="478">再留下打动你的细节。</text>
+    </g>
+    <g transform="translate(660 112) rotate(7 220 124)">
+      <rect x="8" y="12" width="450" height="263" fill="#591026" opacity=".1"/>
+      <rect width="450" height="263" fill="#fffaf2" stroke="#d8c6a9"/>
+      <image href="../../case-product.webp" x="8" y="8" width="434" height="244"/>
+    </g>
+    <g transform="translate(498 260) rotate(-4 315 178)">
+      <rect x="9" y="13" width="640" height="376" fill="#591026" opacity=".1"/>
+      <rect width="640" height="376" fill="#fffaf2" stroke="#d8c6a9"/>
+      <image href="../../case-creator.webp" x="10" y="10" width="620" height="349"/>
+    </g>
+    <path d="M58 555 H364" stroke="#ae8753"/>
+    <text x="58" y="595" fill="#591026" font-family="SimSun,serif" font-size="21">简报 · 草图 · 反馈 · 页面</text>
+    <text x="58" y="628" fill="#6a5951" font-family="SimSun,serif" font-size="18">设计技能与交互演示</text>
+  </g>
+</svg>

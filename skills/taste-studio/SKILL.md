@@ -5,6 +5,8 @@ description: Art-direct a web or mobile interface through 3–4 generated concep
 
 # Taste Studio
 
+Taste Studio believes AI can help us explore more possibilities in design. Each person's own responses and choices give those possibilities direction.
+
 Help the owner discover which visual choices serve this product and why. Use their language in conversation and the product's language in the sketches. Resume at the owner's current decision: an existing brief, a set of sketches awaiting feedback, or a selected direction can all be valid starting points.
 
 ## Establish the brief
@@ -12,6 +14,8 @@ Help the owner discover which visual choices serve this product and why. Use the
 Read the product facts and existing brand constraints available in the current project. Use a short spec and brainstorming to identify the audience, situation of use, key screen, real content, primary action, device/input, and one observable success criterion. If an unknown would change the directions, ask a focused question and wait for the answer. With a clear brief, proceed. Optional inspiration can come from a physical object, publication, place, or interaction. Identify what makes that reference relevant.
 
 ## Make comparable directions
+
+Plan whitespace around what the visitor needs to notice, understand, and do, in that order. Keep details people compare close together and place each action beside the information needed to take it. A timetable can use compact rows for scanning and a larger gap where the task shifts from choosing a session to booking it. Choose those intervals for the content and viewport. If a section feels crowded, trim secondary copy, decoration, or motion that competes with its main point.
 
 1. Pick three candidates, or four when requested or when a fourth explores a distinct possibility. Draw that many **distinct random strings** before choosing themes. Run `python "<skill-dir>/scripts/draw_seeds.py" 3` (or `4`), resolving the path relative to this file. Where Python is unavailable, use a host random source, such as one freshly generated UUID per direction. The strings are private ideation cues. Use only their interpreted qualities in image prompts. Never put the strings in visible output or depend on an image-model seed parameter.
 2. Turn each cue into a decision about this brief. For each direction, privately specify the user's first focal point, reading order, one trade-off, and a coherent theme covering composition, color roles, typography, image treatment, icons, button and label shapes, spacing, and interaction feedback. If removing color leaves two near-identical layouts, rethink one before rendering. For example, a workshop page can lead with the maker's process, the schedule, or the result a beginner can achieve. Each still needs to make the same booking task possible.
@@ -21,6 +25,8 @@ Read the product facts and existing brand constraints available in the current p
 ## Listen, recommend, then refine
 
 After the owner's response, reflect the concrete detail they named. If they gave only a letter, honor the choice and invite a reason without inventing one. Offer your own recommendation with one reason tied to the brief and one trade-off. Name a specific disagreement if you have one. If the direction is still open, wait for the owner's choice. If they already chose, continue on that basis. When they like elements of two directions, preserve the selected theme and translate the particular borrowed decision into its visual language.
+
+A feeling is enough to guide the next edit. If the owner says "I keep coming back to B, but I can't explain why," take B as the starting point and leave the reason open. If none feels right, invite an impression, a reference, or something they wish they had seen, then explore a fresh direction. When showing the revision, return to their words and ask whether the quality they cared about is still there.
 
 Record real feedback in the **active design project**, appending to `.taste-studio/feedback.md` on the first actual comment (or use its established design log). For a read-only engagement keep the entry in the conversation. Never store project feedback in the installed skill. Each entry needs only:
 
@@ -34,6 +40,10 @@ Refine the chosen composition with the image editing tool when delivering a desi
 
 ## Interaction and final review
 
+Make interaction reviewable while the work is still a sketch. Pick a moment that matters to this brief. Show the starting view, the input or passage of time, and the resulting view. For an in-page jump, show the control under focus or press and the destination with its heading visible. A small strip of frames can answer where a tap leads; a short motion study can answer whether a material feels alive. Keep the controls and text spatially stable during ambient movement. On touch devices preserve native scrolling, and with reduced motion keep the destination and feedback available without the animated journey. Label what the study simulates; actual latency, focus transfer, and touch behavior need a runnable page.
+
 Define feedback around an actual event: what happens on input, what changes while waiting, and what confirms success or explains failure? Use Three.js, 3D or particles only when there is an identifiable benefit, such as rotating a cup to inspect handle clearance. In that case, compare with a static view on the target device. Check initial usability, scroll/drag responsiveness, and gesture conflicts. Provide equivalent access with keyboard, touch, reduced motion, and a static fallback as applicable.
 
 For an implemented page, open the actual desktop and mobile views. Review the whole composition against the chosen sketch and original success criterion, then inspect repeated controls, type, spacing, wrapping, icons, and contrast. Walk the primary task through its consequential states. Watch transitions in motion. Fix the most consequential deviation and repeat the affected check. Report what was observed, which detail from the owner's feedback survived, and any remaining gap. For an image-only delivery, describe visual findings and leave runtime behavior unverified.
+
+Scroll through the transitions between sections at each target size. Can the reader tell where one thought ends and why the next follows? Adjust spacing or reading order where sections run together or a long gap separates a decision from its action.

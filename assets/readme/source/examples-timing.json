@@ -1,0 +1,13 @@
+{
+  "frames": [
+    "case-portfolio-selected.png",
+    "case-product.png",
+    "case-creator.png",
+    "case-event.png"
+  ],
+  "width": 960,
+  "height": 640,
+  "hold_ms": 2800,
+  "transition_ms": 480,
+  "loop": true
+}

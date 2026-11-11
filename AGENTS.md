@@ -1,10 +1,10 @@
 # Taste Studio
 
-Working draft for discussion. The name, scope, and examples are provisional.
+Taste Studio believes AI can help us explore more possibilities in design. Each person's own responses and choices give those possibilities direction.
 
 ## What we want to learn
 
-Can a design assistant make a visual choice that its owner recognizes as theirs, and carry the reasoning into a different project? A successful first trial would let the owner point to two decisions on screen and say why each belongs there.
+Can the owner recognize what first moved them in the finished page? In a first trial, invite them to point to one detail they wanted to keep and see whether it survived the revision. Their reaction counts even when they cannot yet put it into words.
 
 Start with art direction for brand-led websites and mobile experiences. Run the first end-to-end trial in the owner's OpenAI coding workspace, using its built-in image generation and editing. Express the design method in terms of the brief, images, critique, and observable user actions. If a second agent is tried later, map those steps to the capabilities it actually offers and the way it invokes them. The first trial needs only one host.
 
@@ -27,7 +27,7 @@ Once the brief is agreed, draw three or four distinct random strings with the ho
 Before rendering, give each direction a theme and state what the visitor should notice first, which product need this serves, and one trade-off. Rework a seed's interpretation if it conflicts with the brief or produces essentially the same layout as another direction. Define a compact visual language for each theme:
 
 - Color roles, type hierarchy, image treatment, and icon family.
-- Shapes and states for buttons and labels, plus a spacing rhythm appropriate to the content.
+- Shapes and states for buttons and labels. Use whitespace to guide the eye from the most important content to the next step. Group details visitors need to compare, keep actions near the facts that support them, and give a change of subject room to register. Choose the density for the content and device. Cut secondary details, decoration, or motion when they crowd the main task.
 - How a primary action acknowledges input and how a change of state becomes visible.
 
 Use the workspace's built-in image generation to make three or four separate sketches of the same screen. Keep the actual copy, required information, primary action, viewport, and level of finish comparable. Vary what draws the eye, how the information is grouped, or how the user approaches the task. A useful check is whether two sketches still present different ideas in grayscale. Include a fourth when it gives the owner a different decision to make.
@@ -48,9 +48,13 @@ Turn the chosen theme into concrete decisions for desktop and phone. Set the typ
 
 Design motion around a particular event. For example, after a buyer selects a session, move the selection indicator and update the booking summary where they can see it. Consider Three.js when the experience would benefit from spatial interaction or a particular dynamic effect. Rotating a ceramic cup might reveal its handle clearance; a particle trail might make the direction of airflow legible in an educational tool. Identify the benefit before choosing the technique.
 
+At sketch fidelity, show the interaction the owner is being asked to judge. For a jump within a page, show the resting control, its pressed or focused state, and the settled destination. For ambient movement, keep type and actions anchored and show the intended pace in a short motion study when pacing matters.
+
 During a prototype trial, compare the effect with a simple static view on a representative phone. Check time until the primary action is usable, responsiveness while dragging and scrolling, and whether gestures compete with page navigation. Check that the same information and task remain accessible with keyboard input, reduced motion, or a static fallback. Simplify or remove an effect that costs more than it contributes.
 
 ## Review the actual page
+
+Scroll across section boundaries at each target size. Check whether the next heading follows naturally from the previous section and whether the spacing keeps related content and controls together.
 
 When a runnable page is in scope and available, open it at the target desktop and phone sizes. First look at the whole screen and page sequence against the chosen sketch. Where does attention land? Can the user find the primary action with the real content? Then inspect repeated controls side by side, text wrapping, spacing, icon alignment, and contrast. Compare the same action across its relevant states.
 
