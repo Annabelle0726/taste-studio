@@ -77,6 +77,45 @@ python -m http.server 8000
 
 然后打开 [本地页面](http://localhost:8000)。可以从首页进入文章，体验花店设计步骤，再切换四个页面案例。
 
+
+### 安装设计技能
+
+先安装 Node.js（包含 npm 和 npx），再在你要设计的项目目录运行下面的命令，按提示选择使用的 agent。
+
+```bash
+npx skills add Annabelle0726/taste-studio --skill taste-studio
+```
+
+默认安装到当前项目。想在多个项目中使用，可以安装到用户范围。
+
+```bash
+npx skills add Annabelle0726/taste-studio --skill taste-studio --global
+```
+
+安装前可以查看仓库中的技能。
+
+```bash
+npx skills add Annabelle0726/taste-studio --list
+```
+
+如果环境不支持符号链接，在安装命令后加上 `--copy`。安装完成后，新开一个会话，用 `$taste-studio` 或技能名称发起任务；具体调用方式以所用 agent 为准。
+
+**从本地仓库安装**
+
+已经下载本仓库时，在仓库根目录运行下面的命令，安装到用户范围。
+
+```bash
+npx skills add ./skills/taste-studio --global
+```
+
+**手动安装**
+
+从仓库下载完整的 `skills/taste-studio/` 文件夹，复制到所用 agent 文档指定的技能目录，保留 `SKILL.md`、`scripts/` 和 `agents/` 的相对位置。如果已有同名技能，先备份自己的修改。重新打开会话后加载 Taste Studio。
+
+技能安装完成后，生成和编辑草图仍需要工作环境提供图像工具。Python 用于运行随机创意线索脚本；未安装 Python 时，技能允许使用工作环境自身的随机数工具。
+
+安装命令和参数依据 [Skills CLI 官方说明](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)。
+
 ### 使用设计技能
 
 在支持本地技能和图像生成的工作环境中，加载 [`skills/taste-studio/SKILL.md`](skills/taste-studio/SKILL.md)，再带着具体页面开始讨论。例如：
