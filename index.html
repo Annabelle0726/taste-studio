@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#faf5eb"><meta name="description" content="Taste Studio 用多种设计草图探索可能，听你说哪一处值得保留。读一篇关于审美的文章，看四个应用案例。">
+<title>Taste Studio · 技术一直在变，但我们依然会为美停下来</title>
+<link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="assets/site.css"><script defer src="assets/site.js"></script>
+</head>
+<body id="top">
+<a class="skip" href="#article">跳至正文</a>
+<header class="mast"><div class="mast-inner">
+<a href="#top" class="wordmark" aria-label="Taste Studio，返回顶部">Taste Studio</a>
+<nav aria-label="主导航"><a class="home-link" href="#top" aria-label="首页，返回开头" title="首页" aria-current="location"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v11h5v-6h4v6h5V9"/></svg></a><a href="#article">文章</a><a href="#examples">案例</a></nav>
+</div></header>
+<main>
+<div class="landing">
+<section class="hero" aria-labelledby="headline">
+
+<div class="hero-copy"><h1 id="headline"><span>技术一直在变，</span><span>但我们依然会为<em>「美」</em>停下来</span></h1>
+<p><span>AI 帮我们探索更多设计的可能；</span><span><span class="hero-clause">而每个人独特的感受与选择，</span><wbr><span class="hero-clause">让这些可能有了方向。</span></span></p>
+<nav class="feature-links" aria-label="继续浏览">
+  <a href="#article">阅读文章 <span aria-hidden="true">→</span></a>
+  <a href="#examples">查看案例 <span aria-hidden="true">→</span></a>
+</nav>
+</div>
+</section>
+<section class="opening" aria-roledescription="轮播" aria-label="三种材质的细节">
+<div class="silk" aria-hidden="true"><img src="assets/silk.webp" alt="" fetchpriority="high">
+<svg width="0" height="0" focusable="false" aria-hidden="true">
+  <filter id="silk-wind" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feImage id="silk-wave" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none"/>
+    <feColorMatrix id="silk-phase" type="matrix" values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 0  0 0 0 0 1" result="displacement"/>
+    <feDisplacementMap id="silk-depth" in="SourceGraphic" in2="displacement" xChannelSelector="R" yChannelSelector="G" scale="0"/>
+  </filter>
+</svg></div>
+<div class="gallery">
+<div class="slides">
+<img class="slide" src="assets/vessel.webp" width="1200" height="800" alt="手指托起深红釉陶碗，杯沿映着一线暖光" aria-hidden="true">
+<img class="slide" aria-hidden="true" src="assets/hero-book.webp" width="1200" height="800" alt="细金线穿过朱红布面书脊与奶油白纸页">
+<img class="slide active" src="assets/hero-glass.webp" width="1200" height="800" alt="完整的酒红玻璃瓶立在石台上，日光在右侧投下玫瑰色光影">
+</div>
+<div class="gallery-bar">
+  <button class="gallery-prev" type="button" aria-label="上一张">‹</button>
+  <span class="caption" hidden>01 / 03</span>
+  <span class="caption" hidden>02 / 03</span>
+  <span class="caption">03 / 03</span>
+  <div class="gallery-controls" hidden><button type="button" aria-label="显示第 1 张：釉色与指尖" aria-pressed="false"></button><button type="button" aria-label="显示第 2 张：书脊上的金线" aria-pressed="false"></button><button type="button" aria-label="显示第 3 张：透过玻璃的光" aria-pressed="true"></button></div>
+  <button class="gallery-next" type="button" aria-label="下一张">›</button>
+</div>
+</div>
+<div class="opening-copy"><div class="copy-stack">
+<div class="copy-panel" aria-hidden="true"><h2>目光停在一道釉边</h2><p>手指托起陶碗，深红的釉面只在碗口亮起一线。我想多看一眼的，是光碰到手作痕迹的那一刻。</p></div>
+<div class="copy-panel" aria-hidden="true"><h2>一针<span class="gold-thread">金线</span>，把纸页连起来</h2><p>翻开朱红的布面书，颜色退到边上，细细的针脚露了出来。方才看的是一整片红，现在看的是一个人的手工。</p></div>
+<div class="copy-panel active"><h2>红色也会透出光</h2><p>玻璃把一抹玫瑰色投在桌面上。同样是红，这一次<span class="keep-phrase">让我停下来</span>的，是颜色从浓到淡、几乎消失的边缘。</p></div>
+</div>
+
+</div>
+</section>
+</div>
+<div class="reader wrap">
+<aside class="reader-tools">
+<div class="rail"><span class="rail-title">文章目录</span>
+<nav aria-label="文章章节">
+<section class="toc-group">
+  <h3>什么是「美」</h3>
+  <ul>
+    <li><a href="#article">同一个页面，不同的目光</a></li>
+    <li><a href="#eras">审美为什么会变</a></li>
+  </ul>
+</section>
+<section class="toc-group">
+  <h3>介绍 Taste Studio</h3>
+  <ul>
+    <li><a href="#ai">为什么 AI 页面容易雷同</a></li>
+    <li><a href="#workflow">Taste Studio 怎样工作</a></li>
+    <li><a href="#studio">Taste Studio 怎样设计页面</a></li>
+    <li><a href="#preferences">Taste Studio 怎样记录你的偏好</a></li>
+    <li><a href="#examples">案例</a></li>
+  </ul>
+</section>
+</nav></div>
+<div class="compact-rail"><details><summary>文章目录</summary><nav aria-label="移动端文章章节">
+<section class="toc-group">
+  <h3>什么是「美」</h3>
+  <ul>
+    <li><a href="#article">同一个页面，不同的目光</a></li>
+    <li><a href="#eras">审美为什么会变</a></li>
+  </ul>
+</section>
+<section class="toc-group">
+  <h3>介绍 Taste Studio</h3>
+  <ul>
+    <li><a href="#ai">为什么 AI 页面容易雷同</a></li>
+    <li><a href="#workflow">Taste Studio 怎样工作</a></li>
+    <li><a href="#studio">Taste Studio 怎样设计页面</a></li>
+    <li><a href="#preferences">Taste Studio 怎样记录你的偏好</a></li>
+    <li><a href="#examples">案例</a></li>
+  </ul>
+</section>
+</nav></details><a href="#examples">查看案例 ↓</a></div>
+</aside>
+<article class="prose">
+<section class="book-study" aria-labelledby="article">
+  <h2 id="article" tabindex="-1">同一个页面，不同的目光</h2>
+  <p class="book-question">刚才首页上的那本书，<span class="keep-words">你先看见了什么？</span></p>
+  <p class="book-cloth">有人先看见<strong>朱红的布面</strong>。纸页底下只露出一圈窄边，那<span class="keep-words">抹红</span>却把整本书托了起来。</p>
+  <img class="book-overview" src="assets/book.webp" width="1200" height="800" alt="摊开的书露出朱红布边，金线沿着书脊穿过纸页">
+  <button class="stitch-trigger" type="button" aria-label="重看金线与针脚特写" title="重看金线与针脚特写" hidden></button>
+  <p class="book-stitch">也有人沿着书脊看下去。<strong class="gold-thread">金线隔一段就钻进纸里</strong>，<span class="keep-words">翻开的书页</span>就这样缝在一起。</p>
+  <svg class="book-detail" viewBox="270 240 430 430" preserveAspectRatio="xMidYMid slice" role="img" aria-label="书页与金色书脊针脚的放大细节，取自左侧书本照片">
+    <image href="assets/book.webp" width="1200" height="800"/>
+  </svg>
+  <a class="book-next" href="#eras">审美为什么会变 <span aria-hidden="true">→</span></a>
+  <svg class="stitch-guide" aria-hidden="true"><rect class="stitch-crop"/><circle class="stitch-start" r="15"/><path pathLength="1"/><circle class="stitch-end" r="7"/></svg>
+</section>
+<section class="eras-study" aria-labelledby="eras">
+  <h2 id="eras" tabindex="-1">审美为什么会变</h2>
+  <div class="eras-spread">
+    <div class="eras-copy">
+      <p>我们对美的感受，并不是一成不变的。生活的环境、接触的人、使用的工具，以及一个时代流行的表达方式，都会影响我们看待事物的眼光。<span data-step="1">同样是一个网页，初次看到时觉得新鲜的设计，见多了可能会觉得拥挤；曾经觉得普通的留白，也可能在某个时刻让人感到舒适。</span></p>
+      <p>变化的不只是外部环境，还有我们自己的需求。<span data-step="2">赶时间时，我们希望信息清楚、操作直接；</span><span data-step="3">想了解一个品牌或阅读一篇文章时，可能又期待画面有氛围，愿意放慢脚步。</span>一个设计是否让人觉得美，往往和它出现在哪里、面对谁、帮助人做什么有关。</p>
+      <p data-step="4">所以，审美不是给每个页面套用同一套固定的颜色或风格。它需要不断观察：人们身处怎样的情境，正在寻找什么，又会被什么细节打动。技术可以帮助我们尝试更多可能，而人的感受与选择，会让这些可能逐渐找到属于自己的方向。</p>
+    </div>
+    <figure class="eras-workshop">
+        <div class="workshop"><div class="workshop-photo"><img src="assets/eras-pottery.webp" width="1672" height="941" loading="lazy" alt="陶工在器壁上刻线，工作台另一侧放着烧好的釉碗"></div>
+          <div class="class-info"><strong>手作陶器体验课</strong><span>周六 14:00</span><span>余 3 席</span></div>
+        </div>
+        <figcaption>同一个陶艺课页面，可以从手艺读起，也可以从场次读起。</figcaption>
+        <div class="choice" role="group" aria-label="选择想细看的陶艺细节" hidden><span>你想细看</span><button data-focus="hand" aria-pressed="true">刻下的线</button><button data-focus="glaze" aria-pressed="false">烧成的釉</button></div>
+    </figure>
+  </div>
+  <a class="book-next" href="#ai">为什么 AI 页面容易雷同 <span aria-hidden="true">→</span></a>
+</section>
+<section class="template-study">
+  <h2 id="ai" tabindex="-1">为什么 AI 页面容易雷同</h2>
+  <p class="template-intro">只告诉 AI「做得好看一点」，它就容易沿用熟悉的排法。看看下面三张首页：换了照片，还有哪里变了？</p>
+  <figure>
+    <svg class="template-sequence" viewBox="0 0 1816 866" preserveAspectRatio="xMinYMid meet" role="img" aria-label="三张网页叠在一起：主图依次是鲜花、书架和咖啡。每张主图下面都是两行文字，再往下都是并排的三个方框。">
+      <g class="template-camera">
+        <image href="assets/template-study.webp" width="1816" height="866"/>
+        <!-- Each paper mask leaves the already revealed sheets visible through its cutout. -->
+        <g class="template-masks" fill="var(--cream)" fill-rule="evenodd">
+          <path class="reveal-florist" d="M0 0H1816V866H0Z M141 98L668 207V809L140 784Z"/>
+          <path class="reveal-bookshop" d="M0 0H1816V866H0Z M141 98L598 193V56L1050 166V682L668 755V809L140 784Z"/>
+          <path class="reveal-cafe" d="M0 0H1816V866H0Z M141 98L598 193V56L997 153V48L1387 140V497L1050 609V682L668 755V809L140 784Z"/>
+        </g>
+        <circle class="template-focus" cx="1675" cy="269" r="30" fill="none" stroke="var(--gold)" stroke-width="3"/>
+      </g>
+    </svg>
+  </figure>
+  <div class="template-summary">
+    <h3>解决办法：先说清楚，谁来这一页做什么</h3>
+    <p>试着告诉 AI：「顾客想在下班路上买束花。」这时首页就有了顺序：先让人挑今天能买到的花，再告诉他几点前、去哪里取。</p>
+    <a class="book-next" href="#workflow">Taste Studio 怎样工作 <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+<section class="workflow" aria-labelledby="workflow">
+  <h2 id="workflow" tabindex="-1">Taste Studio 怎样工作</h2>
+  <nav class="workflow-nav" aria-label="工作步骤">
+    <a href="#flow-brief">写简报</a><a href="#flow-sketches">看草图</a><a href="#flow-detail">选细节</a><a href="#flow-page">试页面</a>
+  </nav>
+  <div id="flow-brief" class="flow-panel">
+    <img class="flow-photo" src="assets/florist-bouquets.webp" alt="花房里备好的花束">
+    <div class="flow-copy"><h3>今天的花，怎么让人看见？</h3>
+      <p>花店新到一批洋牡丹。附近的顾客想下班顺路买花，打开首页要能看清花，也能找到取花的时间和地址。</p>
+      <a class="flow-action" href="#flow-sketches">用这份简报看草图 →</a>
+    </div>
+  </div>
+  <div id="flow-sketches" class="flow-sketch-panel">
+    <p class="sketch-desktop-copy">同一份简报，可以先让人看见一朵花、一份花单，或一家店。这次，沿着花瓣特写往下看。</p>
+    <p class="sketch-mobile-copy">同一份简报，先让顾客看见什么？左右滑动，看看三种排法。</p>
+    <div class="flow-proofs">
+      <figure><img src="assets/sketch-bloom.png" alt="以花瓣近景开场的首页草图"><figcaption>花瓣特写</figcaption></figure>
+      <figure><img src="assets/sketch-list.png" alt="并排展示可选花束的首页草图"><figcaption>花束清单</figcaption></figure>
+      <figure><img src="assets/sketch-pickup.png" alt="以到店路线开场的首页草图"><figcaption>到店取花</figcaption></figure>
+    </div>
+    <div class="sketch-mobile-status" aria-live="polite" aria-atomic="true"><span class="sketch-current-name">花瓣特写</span><span class="sketch-current-count">1 / 3</span></div>
+    <a class="flow-action" href="#flow-detail"><span class="sketch-desktop-copy">看花瓣特写里的细节 →</span><span class="sketch-mobile-copy">沿着花瓣特写，继续看细节 →</span></a>
+  </div>
+  <div id="flow-detail" class="flow-panel">
+    <img class="flow-photo flow-source" src="assets/workflow-petal.webp" alt="酒红洋牡丹，白框圈出了花瓣边缘的水珠">
+    <div class="flow-copy"><img class="flow-swatch" src="assets/workflow-detail.webp" alt="白框内花瓣和水珠的放大细节">
+      <h3>想留下的细节</h3><p>我想留住花瓣边缘的水珠。</p>
+      <a class="flow-action" href="#flow-page">保留这处，去试页面 →</a>
+    </div>
+  </div>
+  <div id="flow-page" class="flow-panel">
+    <div class="trial-stage">
+      <div class="flow-phone">
+        <header>花房</header>
+        <div class="trial-photo"><img src="assets/workflow-detail.webp" alt="选中的花瓣水珠">
+          <button class="trial-droplet" aria-label="对照这颗水珠" aria-pressed="false"></button>
+          <div class="trial-rest"><h3>今日洋牡丹</h3><button class="flow-action trial-open" aria-expanded="false" aria-controls="trial-sheet">到店取花 →</button></div>
+        </div>
+        <div id="trial-sheet" class="trial-sheet" hidden>
+          <span class="sheet-handle" aria-hidden="true"></span>
+          <button class="trial-close" aria-label="关闭取花信息">×</button>
+          <h3>今日洋牡丹 · 到店取花</h3>
+          <p>今日 18:00 前</p><p>南街 12 号</p>
+          <button class="flow-action trial-confirm">确认取花</button>
+          <p class="trial-success" role="status" hidden>演示完成，你已找到取花信息。</p>
+        </div>
+      </div>
+      <div class="trial-detail">
+        <div class="trial-enlargement"><img src="assets/workflow-detail.webp" alt="同一颗水珠的放大对照"><span class="trial-ring" aria-hidden="true"></span></div>
+        <div class="trial-message"><h3>你选的水珠，还在这里。</h3><p>花瓣的细节留住了，取花的入口也找得到。</p></div>
+        <p class="trial-hint">先点水珠对照细节，再试试「到店取花」</p>
+      </div>
+      <svg class="trial-connector" aria-hidden="true"><path pathLength="1"/></svg>
+    </div>
+    <div class="trial-navigation"><a href="#flow-detail">← 返回选细节</a><a href="#studio">Taste Studio 怎样设计页面 →</a></div>
+  </div>
+</section>
+<section class="design-demo">
+<div class="postcard-demo">
+  <h2 id="studio" tabindex="-1">Taste Studio 怎样设计页面</h2>
+  <div class="postcard-brief">
+    <p id="design-skill">你告诉 Taste Studio：「我想做个花店首页，让顾客挑花、到店取花」，它先画三种排法给你看。你指出喜欢哪一处，它就按你的反馈改下一稿。</p>
+    <p>点一张小图，看这版首页怎么排</p>
+    <fieldset class="sketch-picker" aria-label="选择花店草图">
+      <label><input type="radio" name="florist-direction" value="petals" aria-controls="detail-petals" checked><span class="sketch-thumb"><img src="assets/sketch-bloom.png" alt=""></span><span>花瓣特写</span></label>
+      <label><input type="radio" name="florist-direction" value="bouquets" aria-controls="detail-bouquets"><span class="sketch-thumb"><img src="assets/sketch-list.png" alt=""></span><span>花束清单</span></label>
+      <label><input type="radio" name="florist-direction" value="storefront" aria-controls="detail-storefront"><span class="sketch-thumb"><img src="assets/sketch-pickup.png" alt=""></span><span>到店取花</span></label>
+    </fieldset>
+    <div class="sketch-notes" aria-live="polite">
+      <p data-note="petals">这版把一朵洋牡丹放大，让顾客看清花瓣。花名和「取花」按钮紧挨着放在照片下方。</p>
+      <p data-note="bouquets">这版把三款花束排成清单。每行左边是照片，右边是花名和特点，顾客可以逐行比较。</p>
+      <p data-note="storefront">这版先放店门照片，让来取花的人认得门。照片下面写着取花时间，再往下就是路线入口。</p>
+    </div>
+  </div>
+  <div class="postcard-stack" aria-live="polite">
+    <article class="florist-card" id="detail-petals"><header class="flower-mast">花房 <i aria-hidden="true"></i></header><div class="petal-photo"><img src="assets/florist-petals.webp" alt="酒红洋牡丹的花瓣层层展开"><span>花瓣特写</span></div><footer class="flower-foot"><span>今日到店的花<small>洋牡丹 · 现已备好取花</small></span><span class="pickup-mark">取花 →</span></footer></article>
+    <article class="florist-card" id="detail-bouquets"><header class="flower-mast">花房 <i aria-hidden="true"></i></header><div class="bouquet-menu"><h3>今日花束</h3><ul><li><img src="assets/flower-pink.png" alt=""><span>粉色洋牡丹<small>层层花瓣，花头圆润</small></span></li><li><img src="assets/flower-white.png" alt=""><span>白色绣球<small>小花成簇，浅淡清透</small></span></li><li><img src="assets/flower-purple.png" alt=""><span>紫色小花束<small>枝条轻盈，错落舒展</small></span></li></ul></div></article>
+    <article class="florist-card" id="detail-storefront"><header class="flower-mast">花房 <i aria-hidden="true"></i></header><div class="pickup-guide"><h3>到店取花</h3><img src="assets/florist-storefront.webp" alt="米色遮阳篷下的酒红色花店门面"><dl><dt>认准门面</dt><dd>酒红色木门，米色遮阳篷</dd><dt>取花时段</dt><dd>今日 10:00–18:00</dd></dl><span class="pickup-mark">查看到店路线 →</span></div></article>
+  </div>
+  <a class="book-next postcard-next" href="#preferences">Taste Studio 怎样记录你的偏好 <span aria-hidden="true">→</span></a>
+</div>
+</section>
+<section class="preference-study"><h2 id="preferences" tabindex="-1">Taste Studio 怎样记录你的偏好</h2>
+<p class="preference-context">花店首页 · 手机端 · 第一张草图</p>
+<div class="preference-note">
+  <div class="marked-petals"><img src="assets/florist-petals.webp" alt="酒红洋牡丹的花瓣层层相叠，金色圆环标出下方几层花瓣"></div>
+  <dl><dt>店主原话</dt><dd>“我喜欢第一张，<span class="petal-reference">能看清花瓣</span>。”</dd>
+  <dt>设计师的理解</dt><dd>我理解，你想看清花瓣一层叠着一层的样子。</dd></dl>
+</div>
+<p class="preference-transition">这条记录是这样留下的。</p>
+<ol class="preference-steps">
+  <li><span class="step-number">01</span><div class="step-content"><h3>把原话和草图放在一起</h3><p>在草图旁记下店主原话，另起一行写设计师的理解。</p><div class="step-art record-art"><img class="step-print" src="assets/florist-petals.webp" alt="记录中保留的花瓣特写"><span class="record-lines">原话 · 能看清花瓣<br>理解 · 留下层叠细节</span></div></div></li>
+  <li><span class="step-number">02</span><div class="step-content"><h3>改完，请店主再看</h3><p>打开手机上的下一稿，问店主：“喜欢的那几层花瓣，还看得清吗？”</p><div class="step-art dialogue-art"><div class="step-phone"><img src="assets/florist-petals.webp" alt="完整手机里的花瓣特写"></div><span class="step-bubble">这几层还看得清吗？</span></div></div></li>
+  <li><span class="step-number">03</span><div class="step-content"><h3>换个项目，先问再用</h3><p>“上次你想看清花瓣。这次想看清杯子的釉纹，还是先看整只杯子？”等你确认，再决定怎么拍。</p><div class="step-art cup-art"><img class="step-cup" src="assets/preference-cup.webp" alt="一只完整的酒红釉陶杯"><span class="cup-mark" aria-hidden="true"></span><span class="cup-question">这次也想看釉纹吗？</span></div></div></li>
+</ol>
+<div class="preference-controls"><a class="preference-exit flow-action" href="#examples">看案例 →</a><span class="preference-progress" aria-live="polite" aria-atomic="true">共 3 步</span></div>
+</section>
+
+</article></div>
+<section class="example-room" id="examples" tabindex="-1" aria-label="案例">
+  <div class="example-display wrap">
+    <div class="example-list" role="group" aria-label="选择案例">
+      <button type="button" data-preview="assets/case-portfolio-selected.webp" aria-pressed="true">个人作品集</button>
+      <button type="button" data-preview="assets/case-product.webp" aria-pressed="false">产品介绍页</button>
+      <button type="button" data-preview="assets/case-creator.webp" aria-pressed="false">创作者主页</button>
+      <button type="button" data-preview="assets/case-event.webp" aria-pressed="false">活动报名页</button>
+    </div>
+    <div class="example-frame">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1200" height="675" alt="个人作品集预览" style="visibility:hidden">
+    </div>
+    <button class="example-enlarge" type="button">查看大图 <span aria-hidden="true">↗</span></button>
+  </div>
+  <dialog class="example-viewer" aria-label="案例大图">
+    <div class="example-viewer-toolbar"><span class="example-viewer-title"></span><div><button type="button" class="example-zoom-out" aria-label="缩小">−</button><button type="button" class="example-zoom-in" aria-label="放大">＋</button><button type="button" class="example-close">关闭</button></div></div>
+    <div class="example-viewer-scroll" tabindex="0" aria-label="案例图片，可滚动查看"><img src="assets/case-portfolio-selected.webp" alt="个人作品集预览"></div>
+  </dialog>
+</section>
+<section class="closing wrap" aria-labelledby="closing-title">
+  <img class="closing-photo" src="assets/closing-binding.webp" width="1024" height="1536" loading="lazy" alt="朱红布面书脊上的金色针线，上方露出微微展开的奶油色纸页">
+  <div class="closing-copy"><h2 id="closing-title">美，也需要被认真对待</h2>
+<p>我不觉得 AI 能替我们决定什么是美。它可以提出意外的组合，帮我们看见更多可能；但什么让人感到亲近，什么显得突兀，什么与眼前的生活有关，仍然需要我们自己去<strong>感受、选择和表达</strong>。</p>
+<p>技术一直在变，我们喜欢的风格也会改变。但也许正因为每个人的感受不同，设计才值得被反复探索。我想做 Taste Studio，也是想给这些不同留一点空间：让工具帮我们看得更远，也<strong>让人的感受在设计里有位置</strong>。</p></div>
+  <div class="closing-question" id="question" tabindex="-1">
+    <p>想一想最近见过的一样美的东西，你会想到什么？</p>
+    <p>它又是在哪一个细节，让你愿意停下来多看一眼？</p>
+  </div>
+</section>
+</main><footer class="wrap site-footer"><a class="wordmark" href="#top">Taste Studio</a><a class="footer-top" href="#top">回到顶部 ↑</a>
+  </footer>
+</body></html>
