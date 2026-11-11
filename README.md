@@ -9,7 +9,7 @@
   <img src="assets/readme/python.svg" height="24" alt="Python">
 </p>
 
-<p align="center"><a href="#一次设计怎样发生">看设计流程</a> · <a href="#四种页面各有自己的任务">看页面案例</a> · <a href="#开始使用">本地体验</a></p>
+<p align="center"><a href="https://annabelle0726.github.io/taste-studio/">在线体验</a> · <a href="#一次设计怎样发生">看设计流程</a> · <a href="#四种页面各有自己的任务">看页面案例</a> · <a href="#开始使用">本地体验</a></p>
 
 **Taste Studio 用 AI 探索更多设计的可能，让每个人的感受与选择为这些可能指明方向。**
 
@@ -66,6 +66,8 @@
 ## 开始使用
 
 ### 浏览演示网站
+
+直接打开 [Taste Studio 在线网站](https://annabelle0726.github.io/taste-studio/)，无需安装。网站通过 GitHub Pages 从 `master` 分支根目录发布，推送网页更新后会自动重新发布。
 
 网站使用原生 HTML、CSS 和 JavaScript。下载仓库后，在项目目录启动一个静态服务器：
 
