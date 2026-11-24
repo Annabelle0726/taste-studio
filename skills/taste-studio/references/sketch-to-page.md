@@ -35,7 +35,7 @@ On phones, explicitly decide content order, focal crop, heading wraps, selector 
 
 ## Implement the brief's task route
 
-Refine and implement the entry → decision → feedback → continue/return route already established in the brief. Use the shared contract in [Interaction and motion](interaction-and-motion.md); record concrete states, retained context, timing roles, interruption, and applicable recovery behavior before coding. Resolve missing decisions here without replacing the task with a convenient isolated demo. Bouquet switching is one example, not a requirement for other pages.
+Refine and implement the entry → decision → feedback → continue/return route already established in the brief. Use the shared contract in [Interaction and motion](interaction-and-motion.md); record concrete states, retained context, stable/changing/continuity elements, exit/entry choreography, timing roles, interruption, and applicable recovery behavior before coding. Resolve missing decisions here without replacing the task with a convenient isolated demo. Bouquet switching is one example, not a requirement for other pages.
 
 Map the contract onto semantic controls and live data in the project's stack. Keep ordinary state updates and navigation working without the optional animation mechanism. The interaction reference owns the event patterns, continuity rules, and motion acceptance probes; do not maintain a second competing state table here.
 
