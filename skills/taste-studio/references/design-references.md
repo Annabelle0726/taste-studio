@@ -4,6 +4,7 @@ Use these when a brief calls for visual research. Select a few relevant works, o
 
 - [Minimal Gallery](https://minimal.gallery/) collects websites across categories. Look for relevant composition, reading order, and relationships between content and actions.
 - [Oil UI gallery](https://ui.oiloil.org/) provides interface examples across tasks and models. Compare examples with similar content and interaction demands.
+- [Oil Art Landing](https://ui.oiloil.org/art-landing/) presents composition-led pages with independent visual assets and foreground depth. Study the public [Kova](https://ui.oiloil.org/works/kova/) and [Helixa](https://ui.oiloil.org/works/helixa/) briefs for text-free art plates, live product interactions, and desktop/phone screenshot deliverables. Borrow the implementation and review method; derive the style and task from this project's brief. These are public examples, not a required skill dependency.
 - [Scrolltide](https://www.scrolltide.co/) provides scroll-driven templates, motion, and component references. Identify the benefit of an effect before borrowing it, then check phone behavior and reduced motion.
 - [Dribbble landing pages](https://dribbble.com/tags/landing-page) provides visual compositions. Validate any borrowed direction with real text, narrow layouts, and working controls.
 - [Designeer](https://designeer.xyz/) is an owner-supplied reference to inspect when accessible. Its contents were unavailable during the initial review, so establish its relevance before using it.
