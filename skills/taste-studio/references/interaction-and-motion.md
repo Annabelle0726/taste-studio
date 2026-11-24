@@ -2,6 +2,18 @@
 
 Use this reference in the brief, at the sketch's consequential transition, during implementation, and during browser acceptance. Define a usable task first; use motion to explain its changes. Keep the contract and evidence in the active project. Apply only the patterns the task needs.
 
+## Contents
+
+- [Map the task before drawing the screen](#map-the-task-before-drawing-the-screen)
+- [Refine one shared interaction contract](#refine-one-shared-interaction-contract)
+- [Choose what moves before choosing duration](#choose-what-moves-before-choosing-duration)
+- [Compose the transition](#compose-the-transition)
+- [Design the response for the event](#design-the-response-for-the-event)
+- [Establish a rhythm, then adjust it in the page](#establish-a-rhythm,-then-adjust-it-in-the-page)
+- [Choose the simplest mechanism that preserves the task](#choose-the-simplest-mechanism-that-preserves-the-task)
+- [Acceptance: test more than one successful click](#acceptance-test-more-than-one-successful-click)
+- [Technical references](#technical-references)
+
 ## Map the task before drawing the screen
 
 Write one short route with the owner: **entry and context → decision/action → feedback and result → continue or return**. Name what must survive a return: selection, entered values, filters, list position, or another relevant context. Identify waiting, failure, cancellation, and empty/unavailable states only when they can affect this route. Resolve an unknown before sketching if its answer would change the task or directions; otherwise record the assumption.
@@ -21,8 +33,31 @@ Carry the brief's route into implementation rather than choosing a new isolated 
 | Result and consistency | Every dependent image, label, description, count, and onward action; the coherent state they must show together. |
 | Continue, return, and focus | Next destination; focus and scroll placement; retained input/selection/context on Back, close, and reopen. |
 | Waiting, failure, and recovery | Reserved space, previous content or placeholder, error explanation, retry entry, retained input, and cancellation when supported. |
+| Layers and choreography | Stable elements, changing content, continuity anchors; exit/entry overlap, simultaneous updates, and any justified staggering. |
 | Timing and interruption | Motion's purpose, duration/easing role, response to a second input or reversal, and how stale completion is prevented. |
 | Access and fallback | Native scrolling and gestures, semantic controls, visible keyboard focus, reduced motion, and behavior without optional animation APIs. |
+
+## Choose what moves before choosing duration
+
+For each major transition, name the actual elements in three roles before implementing motion:
+
+| Role | Specify |
+| --- | --- |
+| Stable elements | The surrounding frame, persistent heading, navigation, or action area that should retain its visual position and availability during this change. |
+| Changing content | The image, explanation, result, or local selection mark whose state actually changes; animate at this level first. |
+| Continuity anchors | A persistent number, image, label, or selection indicator that helps the eye connect the old focus to the new one. State how it remains recognizable; do not invent decoration just to fill this role. |
+
+Prefer transitions on the content that actually changes. Move a whole container only when the complete view meaningfully enters or exits as one spatial unit, such as a drawer arriving from its edge; record that reason. A short, interruptible 240ms section animation can still be visually heavy. Do not apply transform/opacity to a whole section just because it is a convenient wrapper. Stable does not mean making everything position:fixed: ordinary document scrolling still moves content naturally; avoid adding a second container animation to that journey.
+
+For a case selector, keep the frame and selector available, let the selected marker connect the states, and transition only the changing image/caption. If the caption is unchanged, leave it alone. This is a local example, not a universal layout or effect.
+
+## Compose the transition
+
+Write one compact sequence per major transition: **trigger/acknowledgement → old content exit and new content entry → settled focus**. Name what overlaps, what updates simultaneously, and what remains visible throughout. Keep this beside the layer map in the existing project specification, not in a separate animation checklist for every control.
+
+Avoid a whole block exiting, an empty beat, then a whole block entering. Keep a useful visual anchor while replacement content arrives, and retain the previous complete view during loading when appropriate. Coordinate dependent image, title, copy, and action state; do not reveal a mismatched old/new combination. Never make the visitor wait through a title → paragraph → button queue to read or act. Use slight staggering only when it clarifies this task's reading order, and explain that benefit; do not make it a default page template.
+
+Specify reversal while both states are visible: continue from their current presentation rather than removing layers and restarting from an opaque intermediate state. Keep outgoing layers out of input and accessibility navigation, and preserve the same task without motion.
 
 ## Design the response for the event
 
@@ -76,6 +111,8 @@ Use the running page at the agreed desktop and phone sizes. Repeat the important
 | Reduce motion or omit enhancement | Enable reduced motion and repeat the task. Where an optional API is used, also exercise the ordinary fallback. Correct final state, feedback, focus, and navigation remain available without the animated journey. |
 
 Record browser/device, viewport, input mode, starting state, steps (including when the second input occurred), expected/observed outcome, and pass/fail/untested status. Keep a screenshot for spatial/focus evidence and a short recording or timed observation when judging motion. State whether evidence came from a real phone, touch emulation, a narrow desktop viewport, source inspection, or screenshots. Mark unavailable failure injection or device checks untested; do not call an interaction smooth solely because its duration matches a range. After a fix, repeat the failing sequence with the same conditions.
+
+After the functional probes, assess visual weight separately: can the eye follow the new focus; did a large amount of unchanged content move; did a local change shake the surrounding page? Cite the named elements, trigger, viewport, and observed moment/recording. Explain the effect on attention and propose the smallest adjustment. Follow [Independent review](independent-review.md) to keep these evidence-based design judgments separate from reproducible defects. A passing timing/state check does not establish visual lightness, and text/source review alone cannot establish the felt quality of a running transition.
 
 ## Technical references
 
