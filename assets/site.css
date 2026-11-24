@@ -93,7 +93,7 @@ footer a{
 .opening{position:relative;isolation:isolate;min-width:0;display:grid;grid-template-columns:1fr;gap:20px}
 .gallery{min-width:0;width:100%}
 .slides{aspect-ratio:3/2;position:relative;background:var(--cream);overflow:hidden;box-shadow:0 8px 22px rgb(48 37 31 / .06)}
-.slide{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;opacity:0;transition:opacity .65s ease}
+.slide{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;opacity:0;transition:opacity 240ms ease-out}
 .gold-thread{color:var(--gold-ink)}
 .feature-links{display:grid;justify-items:start;gap:22px;margin-top:36px}
 .feature-links a{
@@ -109,7 +109,13 @@ footer a{
   .feature-links a[href="#examples"]:hover{color:var(--wine);background:rgb(174 135 83 / .06)}
   .feature-links a:hover span{transform:translateX(3px)}
 }
-.feature-links a:active{transform:translateY(1px)}
+.feature-links a:active{opacity:.78}
+.feature-links a{touch-action:manipulation;transition:background-color 120ms ease-out,color 120ms ease-out,opacity 100ms ease-out}
+.feature-links a:focus-visible span{transform:translateX(3px)}
+.feature-links a[href="#studio"]{position:relative}
+.feature-links a[href="#studio"]::after{content:"";position:absolute;bottom:5px;left:24px;right:24px;height:1px;background:var(--gold);transform:scaleX(.28);transform-origin:left;transition:transform 200ms ease-out;pointer-events:none}
+.feature-links a[href="#studio"]:is(:focus-visible,:active)::after{transform:scaleX(1)}
+@media(hover:hover) and (pointer:fine){.feature-links a[href="#studio"]:hover::after{transform:scaleX(1)}}
 .slide.active{opacity:1}.gallery-bar{display:grid;grid-template-columns:1fr auto;align-items:center;min-height:36px}
 .gallery-bar .caption{grid-column:1;grid-row:1}.gallery-controls{grid-column:2;grid-row:1}
 .caption,figcaption,.rail-title,.gallery-controls,.compact-rail,footer>a:last-child{font-size:13px;line-height:1.55;color:var(--muted)}
@@ -121,7 +127,7 @@ footer a{
   .gallery-controls button:not([aria-pressed=true]):hover::after{background:var(--gold-ink)}
 }
 .gold-stroke{display:block;height:1px;width:43px;background:var(--gold);margin-bottom:16px}
-.copy-stack{display:grid}.copy-panel{grid-area:1/1;visibility:hidden;opacity:0;transition:opacity .65s ease,visibility 0s linear .65s}
+.copy-stack{display:grid}.copy-panel{grid-area:1/1;visibility:hidden;opacity:0;transition:opacity 180ms ease-out,visibility 0s linear 180ms}
 .copy-panel.active{visibility:visible;opacity:1;transition-delay:0s}
 .opening-copy h2{font-size:clamp(22px,1.8vw,26px);font-weight:400;color:var(--ruby)}
 .opening-copy p{margin-top:10px;font-size:16px;line-height:1.85;text-wrap:pretty;max-width:32em}
@@ -375,7 +381,7 @@ html{--anchor-gap:64px}.prose p{line-height:1.88}.prose figure>img{aspect-ratio:
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after,.compact-rail details::details-content{transition:none!important;animation:none!important}
-  .feature-links a:hover span{transform:none}
+  .feature-links a:hover span,.feature-links a:focus-visible span{transform:none}
 }
 
 @media(max-width:450px){.cases{padding-top:36px}.case-grid figure{grid-template-columns:1fr;gap:14px}.case-grid figcaption{grid-column:1;grid-row:1}.case-grid .mini{grid-column:1;grid-row:2}.case-grid h3{position:relative}
@@ -607,6 +613,18 @@ main [id]:not(#examples) {scroll-margin-top: var(--anchor-gap)}
   border: 5px ridge #b18a5a; box-shadow: -8px 13px 18px rgb(0 0 0 / .35);
 }
 .example-frame img {width: 100%; height: auto; aspect-ratio: 16/9; object-fit: contain}
+.example-frame img{grid-area:1/1;display:block;opacity:0;pointer-events:none;transition:opacity 220ms ease-out}
+.example-frame img.is-current{opacity:1}
+.example-display{position:relative}
+.example-status{position:absolute;bottom:10px;right:0;margin:0;max-width:65%;min-height:1.6em;color:#efd9b9;font:13px/1.6 var(--serif)}
+.example-list button{transition:color 120ms ease-out,opacity 120ms ease-out;touch-action:manipulation}
+.example-list button::before{transition:background-color 180ms ease-out,box-shadow 180ms ease-out}
+.example-list button.is-pending::before{background:transparent;box-shadow:0 0 0 1px #e4bb6a}
+.example-list button:active{opacity:.65}
+.example-list button[aria-pressed="true"]{color:#ffe2a5}
+.rail nav a:active,.compact-rail a:active,.mast nav a:active{opacity:.65}
+.example-viewer-toolbar button{transition:background-color 120ms ease-out;touch-action:manipulation}
+.example-viewer-toolbar button:active{background:#57382c}
 .example-enlarge {display:none}
 .example-viewer {position:fixed;inset:0;max-width:none;max-height:none;width:100%;height:100%;margin:0;padding:0;border:0;background:#251714;color:#fff1dd}
 .example-viewer::backdrop {background:rgb(0 0 0 / .75)}
@@ -622,6 +640,7 @@ main [id]:not(#examples) {scroll-margin-top: var(--anchor-gap)}
   .example-list button {font-size: clamp(16px, 4.2vw, 18px)}
   .example-frame {border-width:3px;padding:5px}
   .example-enlarge {display:block;justify-self:end;min-height:44px;padding:0 4px;border:0;background:transparent;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:5px}
+  .example-status{position:static;grid-column:1/-1;max-width:none;min-height:3.2em}
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
@@ -783,3 +802,13 @@ main [id]:not(#examples) {scroll-margin-top: var(--anchor-gap)}
   .landing .hero-copy>p{font-size:14px;margin-top:10px}
   .landing .feature-links{margin-top:12px}
 }
+
+/* Homepage controls acknowledge touch without shifting the carousel or its frame. */
+.landing .gallery-bar button{touch-action:manipulation;transition:background-color 120ms ease-out,color 120ms ease-out,opacity 100ms ease-out}
+.landing .gallery-bar button:active{opacity:.6;background:rgb(174 135 83 / .12)}
+
+/* Arrival is a small orientation cue. The heading and section never animate. */
+.nav-arrival{position:relative}
+.nav-arrival::before{content:"";position:absolute;left:-10px;top:.28em;width:2px;height:1em;background:var(--gold);pointer-events:none;animation:arrival-mark 850ms ease-out both}
+@keyframes arrival-mark{0%{opacity:0;transform:scaleY(.5)}20%,65%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+.reader-tools .toc-icon{display:inline-block;vertical-align:-0.125em;margin-inline-end:6px;color:inherit;flex:none}

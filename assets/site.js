@@ -3,50 +3,46 @@
   const $ = selector => document.querySelector(selector);
   const all = selector => [...document.querySelectorAll(selector)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const preferenceCards = all('.preference-steps li');
-  const preferenceStudy = $('.preference-study');
-  if (preferenceStudy && preferenceCards.length && 'IntersectionObserver' in window) {
-    let shown = 0;
-    let visible = false;
-    let timer;
-    const progress = $('.preference-progress');
-    const exit = $('.preference-exit');
-    preferenceCards.forEach(card => {
-      card.classList.add('pending');
-      card.querySelector('.step-content').setAttribute('inert', '');
-      card.querySelector('.step-content').setAttribute('aria-hidden', 'true');
-    });
-    exit.hidden = true;
-    function revealStep() {
-      const card = preferenceCards[shown++];
-      card.classList.remove('pending');
-      card.querySelector('.step-content').removeAttribute('inert');
-      card.querySelector('.step-content').removeAttribute('aria-hidden');
-      card.classList.add('revealed');
-      progress.textContent = '已展开 ' + shown + ' / 3 步';
-      exit.hidden = shown !== preferenceCards.length;
-    }
-    function scheduleSteps() {
-      clearTimeout(timer);
-      if (reduced.matches) {
-        while (shown < preferenceCards.length) revealStep();
-        return;
-      }
-      if (!visible || document.hidden || shown === preferenceCards.length) return;
-      timer = setTimeout(() => {
-        revealStep();
-        scheduleSteps();
-      }, shown === 0 ? 300 : 2200);
-    }
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      scheduleSteps();
-    }, {rootMargin: '-15% 0px -20% 0px'});
-    observer.observe($('.preference-steps'));
-    document.addEventListener('visibilitychange', scheduleSteps);
-    reduced.addEventListener('change', scheduleSteps);
-    scheduleSteps();
+  // A small, one-time entrance for each visible part; controls are usable throughout.
+  const homeEntrances = new Set();
+  const homeParts = new Map([
+    ...all('.hero-copy h1 > span').map((node, i) => [node, {delay:i * 35, rise:4}]),
+    ...all('.hero-copy > p').map(node => [node, {delay:65, rise:0}]),
+    ...all('.feature-links a').map((node, i) => [node, {delay:80 + i * 20, rise:0}]),
+    ...all('.landing .slides,.landing .silk,.landing .opening-copy').map(node => [node, {delay:30, rise:0}])
+  ]);
+  let homeObserver;
+  function settleHome() {
+    homeEntrances.forEach(animation => animation.cancel());
+    homeEntrances.clear();
   }
+  if (!reduced.matches && 'IntersectionObserver' in window) {
+    homeObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const node = entry.target;
+        homeObserver.unobserve(node);
+        if (reduced.matches || navigationTarget || typeof node.animate !== 'function') continue;
+        const {delay, rise} = homeParts.get(node);
+        const opacity = parseFloat(getComputedStyle(node).opacity);
+        const from = {opacity:opacity * .72};
+        const to = {opacity};
+        if (rise) { from.transform = `translateY(${rise}px)`; to.transform = 'none'; }
+        const animation = node.animate([from, to], {
+          duration:260, delay, easing:'cubic-bezier(.2,.7,.25,1)', fill:'backwards'
+        });
+        homeEntrances.add(animation);
+        animation.finished.then(() => homeEntrances.delete(animation)).catch(() => {});
+      }
+    }, {threshold:0});
+    homeParts.forEach((_, node) => homeObserver.observe(node));
+  }
+  reduced.addEventListener('change', () => {
+    if (reduced.matches) { homeObserver?.disconnect(); settleHome(); }
+  });
+  document.querySelector('.landing')?.addEventListener('pointerdown', settleHome, {passive:true});
+  document.addEventListener('keydown', settleHome);
+  addEventListener('pagehide', settleHome);
   const templateSequence = $('.template-sequence');
   if (templateSequence && !reduced.matches && 'IntersectionObserver' in window) {
     templateSequence.classList.add('is-ready');
@@ -57,127 +53,6 @@
     }, {threshold: .4});
     reveal.observe(templateSequence);
   }
-  const silk = $('.silk');
-  const wave = $('#silk-wave');
-  const matrix = $('#silk-phase');
-  const depth = $('#silk-depth');
-  let silkVisible = false;
-  let frame = 0, elapsed = 0, lastPaint = 0;
-
-  // The sides catch more air than the fold beneath the headline.
-  function prepareWave() {
-    const field = document.createElement('canvas');
-    field.width = 256;
-    field.height = 96;
-    const ctx = field.getContext('2d');
-    if (!ctx) return false;
-    const pixels = ctx.createImageData(field.width, field.height);
-    for (let y = 0; y < field.height; y++) {
-      const v = y / (field.height - 1);
-      const envelope = Math.sin(Math.PI * v);
-      for (let x = 0; x < field.width; x++) {
-        const u = x / (field.width - 1);
-        const edge = Math.abs(2 * u - 1);
-        const lift = envelope * (.16 + .84 * edge);
-        const angle = 2.8 * u + 1.4 * v + .5 * Math.sin(5 * u + v);
-        const offset = 4 * (y * field.width + x);
-        pixels.data[offset] = 128 + 125 * lift * Math.sin(angle);
-        pixels.data[offset + 1] = 128 + 125 * lift * Math.cos(angle);
-        pixels.data[offset + 3] = 255;
-      }
-    }
-    ctx.putImageData(pixels, 0, 0);
-    wave.setAttribute('href', field.toDataURL());
-    return true;
-  }
-
-  let waveReady = false;
-  function sizeSilk() {
-    depth.setAttribute('scale', Math.min(11, silk.clientWidth * .013));
-  }
-
-  function tick(now) {
-    if (!lastPaint || now - lastPaint >= 1000 / 30) {
-      const step = lastPaint ? Math.min(now - lastPaint, 100) / 1000 : 0;
-
-      if (silkVisible && waveReady) {
-        elapsed += step;
-        const phase = elapsed * (2 * Math.PI / 18);
-        const gust = .62 + .38 * Math.sin(phase * .71);
-        const a = gust * Math.cos(phase);
-        const b = -gust * Math.sin(phase);
-        const bias = .5 - (a + b) * 128 / 255;
-        matrix.setAttribute('values', `0 0 0 0 .5  ${a} ${b} 0 0 ${bias}  0 0 0 0 0  0 0 0 0 1`);
-      }
-      lastPaint = now;
-    }
-    frame = requestAnimationFrame(tick);
-  }
-
-  const gallery = $('.opening');
-  const slides = all('.slide');
-  const panels = all('.copy-panel');
-  const buttons = all('.gallery-controls button');
-  const captions = all('.gallery-bar .caption');
-  let current = slides.findIndex(slide => slide.classList.contains('active'));
-  let timer = 0;
-  let galleryVisible = false, hovering = false;
-  function show(index) {
-    current = index;
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === current);
-      slide.setAttribute('aria-hidden', String(i !== current));
-      panels[i].classList.toggle('active', i === current);
-      panels[i].setAttribute('aria-hidden', String(i !== current));
-      captions[i].hidden = i !== current;
-      buttons[i].setAttribute('aria-pressed', String(i === current));
-    });
-  }
-  function scheduleSlides() {
-    clearTimeout(timer);
-    if (!reduced.matches && galleryVisible && !document.hidden && !hovering && !gallery.contains(document.activeElement)) {
-      timer = setTimeout(() => { show((current + 1) % slides.length); scheduleSlides(); }, 6500);
-    }
-  }
-  $('.gallery-prev').addEventListener('click', () => {
-    show((current + slides.length - 1) % slides.length);
-    scheduleSlides();
-  });
-  $('.gallery-next').addEventListener('click', () => {
-    show((current + 1) % slides.length);
-    scheduleSlides();
-  });
-  show(0);
-  function syncPlayback() {
-    cancelAnimationFrame(frame);
-    lastPaint = 0;
-    const play = !reduced.matches && silkVisible && !document.hidden;
-    if (play && !waveReady) waveReady = prepareWave();
-    silk.classList.toggle('is-moving', play && waveReady);
-    if (play && waveReady) frame = requestAnimationFrame(tick);
-    scheduleSlides();
-  }
-  $('.gallery-controls').hidden = false;
-  reduced.addEventListener('change', syncPlayback);
-  buttons.forEach((button, i) => button.addEventListener('click', () => { show(i); scheduleSlides(); }));
-  gallery.addEventListener('pointerenter', event => { hovering = event.pointerType === 'mouse'; scheduleSlides(); });
-  gallery.addEventListener('pointerleave', () => { hovering = false; scheduleSlides(); });
-  gallery.addEventListener('focusin', scheduleSlides);
-  gallery.addEventListener('focusout', () => setTimeout(scheduleSlides, 0));
-  document.addEventListener('visibilitychange', syncPlayback);
-  const visibility = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (entry.target === silk) silkVisible = entry.isIntersecting;
-      if (entry.target === gallery) galleryVisible = entry.isIntersecting;
-    }
-    syncPlayback();
-  });
-  visibility.observe(silk);
-  visibility.observe(gallery);
-  new ResizeObserver(sizeSilk).observe(silk);
-  sizeSilk();
-  syncPlayback();
-
   const chapterLinks = all('.reader-tools nav a');
   const headerLinks = all('.mast nav a');
   const study = $('.book-study');
@@ -254,150 +129,79 @@
     if (reduced.matches) traceStitch();
   });
   const headings = all('.prose [tabindex="-1"][id],#examples,#question')
-    .filter(heading => chapterLinks.some(link => link.hash === '#' + heading.id) || heading.id === 'question');
-  const flow = $('.workflow');
-  const sketchTrack = $('.flow-proofs');
-  const sketchFigures = all('.flow-proofs figure');
-  const mobileSketches = matchMedia('(max-width:650px)');
-  function updateSketchProgress() {
-    if (!mobileSketches.matches || !sketchTrack.clientWidth) return;
-    const left = sketchTrack.getBoundingClientRect().left;
-    const active = sketchFigures.reduce((best, item, index) =>
-      Math.abs(item.getBoundingClientRect().left - left) < Math.abs(sketchFigures[best].getBoundingClientRect().left - left) ? index : best, 0);
-    $('.sketch-current-name').textContent = sketchFigures[active].querySelector('figcaption').textContent;
-    $('.sketch-current-count').textContent = (active + 1) + ' / 3';
-  }
-  function configureSketchTrack() {
-    if (mobileSketches.matches) {
-      sketchTrack.tabIndex = 0;
-      sketchTrack.setAttribute('aria-label', '三种首页草图，可左右滑动或按方向键浏览');
-    } else {
-      sketchTrack.removeAttribute('tabindex');
-      sketchTrack.removeAttribute('aria-label');
-      sketchTrack.scrollLeft = 0;
-    }
-    updateSketchProgress();
-  }
-  sketchTrack.addEventListener('scroll', updateSketchProgress, {passive:true});
-  sketchTrack.addEventListener('keydown', event => {
-    if (!mobileSketches.matches || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-    event.preventDefault();
-    const distance = sketchFigures[1].offsetLeft - sketchFigures[0].offsetLeft;
-    sketchTrack.scrollBy({left:distance * (event.key === 'ArrowRight' ? 1 : -1), behavior:reduced.matches ? 'instant' : 'smooth'});
-  });
-  mobileSketches.addEventListener('change', configureSketchTrack);
-  configureSketchTrack();
-  const stepLinks = all('.workflow-nav a');
-  const stepPanels = stepLinks.map(link => document.querySelector(link.hash));
-  const trial = $('#flow-page');
-  const sheet = $('.trial-sheet');
-  const trialOpen = $('.trial-open');
-  function closeTrial(restoreFocus) {
-    sheet.hidden = true;
-    trial.classList.remove('sheet-open');
-    trialOpen.setAttribute('aria-expanded', 'false');
-    if (restoreFocus) trialOpen.focus();
-  }
-  trialOpen.addEventListener('click', () => {
-    sheet.hidden = false;
-    trial.classList.add('sheet-open');
-    trialOpen.setAttribute('aria-expanded', 'true');
-    $('.trial-confirm').hidden = false;
-    $('.trial-success').hidden = true;
-    $('.trial-close').focus({preventScroll:true});
-  });
-  $('.trial-close').addEventListener('click', () => closeTrial(true));
-  trial.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !sheet.hidden) closeTrial(true);
-  });
-  $('.trial-confirm').addEventListener('click', () => {
-    $('.trial-confirm').hidden = true;
-    $('.trial-success').hidden = false;
-    $('.trial-close').focus({preventScroll:true});
-  });
-  $('.trial-droplet').addEventListener('click', event => {
-    trial.classList.add('detail-matched');
-    event.currentTarget.setAttribute('aria-pressed', 'true');
-  });
-  function alignDroplets() {
-    const stage = $('.trial-stage').getBoundingClientRect();
-    if (!stage.width) return;
-    const stacked = matchMedia('(max-width:650px)').matches;
-    $('.trial-detail').style.paddingTop = stacked ? '0px' : ($('.flow-phone header').getBoundingClientRect().height + 1) + 'px';
-    const points = ['.trial-photo', '.trial-enlargement'].map((selector, index) => {
-      const box = $(selector).getBoundingClientRect();
-      const scale = Math.max(box.width / 370, box.height / 365);
-      const x = box.width / 2 + (153 - 185) * scale;
-      const y = box.height / 2 + (216 - 182.5) * scale;
-      const marker = index ? $('.trial-ring') : $('.trial-droplet');
-      marker.style.left = x + 'px';
-      marker.style.top = y + 'px';
-      return {x:box.left-stage.left+x,y:box.top-stage.top+y};
-    });
-    const [start, end] = points;
-    const path = stacked
-      ? 'M '+(start.x-22)+' '+start.y+' H 6 V '+end.y+' H '+(end.x-22)
-      : 'M '+(start.x+22)+' '+start.y+' C '+((start.x+end.x)/2)+' '+start.y+' '+((start.x+end.x)/2)+' '+end.y+' '+(end.x-22)+' '+end.y;
-    $('.trial-connector path').setAttribute('d', path);
-  }
-  const trialLayout = new ResizeObserver(alignDroplets);
-  for (const selector of ['.trial-photo', '.trial-enlargement']) trialLayout.observe($(selector));
-  function showFlowStep(link) {
-    for (const [i, item] of stepLinks.entries()) {
-      const selected = item === link;
-      stepPanels[i].hidden = !selected;
-      if (selected) item.setAttribute('aria-current', 'step');
-      else item.removeAttribute('aria-current');
-    }
-    closeTrial(false);
-  }
-  showFlowStep(stepLinks.find(link => link.hash === location.hash) || stepLinks[0]);
-  flow.addEventListener('click', event => {
-    const target = event.target.closest('a');
-    const step = target && stepLinks.find(link => link.hash === target.hash);
-    if (!step || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    showFlowStep(step);
-    step.focus({preventScroll:true});
-    const heading = flow.querySelector('h2');
-    const offset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + parseFloat(getComputedStyle(heading).scrollMarginTop);
-    window.scrollTo({top:window.scrollY + flow.getBoundingClientRect().top - offset,behavior:'instant'});
-  });
+    .filter(heading => chapterLinks.some(link => link.hash === '#' + heading.id) || heading.id === 'examples' || heading.id === 'question');
   const exampleButtons = all('.example-list button');
-  const exampleImage = $('.example-frame img');
+  let exampleImage = $('.example-frame img');
   let exampleRequest = 0;
   let requestedExample = '';
-  let exampleAnimation;
+  const exampleFrame = exampleImage.parentElement;
+  const exampleStatus = document.createElement('p');
+  exampleStatus.className = 'example-status';
+  exampleStatus.setAttribute('role', 'status');
+  exampleFrame.after(exampleStatus);
+  const exampleAssets = new Map();
+  const exampleLayers = new Map();
+  let displayedExample = null;
+  function loadExample(source) {
+    if (!exampleAssets.has(source)) {
+      const image = new Image();
+      image.src = source;
+      exampleAssets.set(source, image.decode().catch(error => {
+        exampleAssets.delete(source);
+        throw error;
+      }));
+    }
+    return exampleAssets.get(source);
+  }
   async function previewExample(button) {
     const source = button.dataset.preview;
     if (requestedExample === source) return;
     requestedExample = source;
     const request = ++exampleRequest;
-    for (const item of exampleButtons) {
-      item.setAttribute('aria-pressed', String(item === button));
-    }
-    exampleImage.parentElement.setAttribute('aria-busy', 'true');
-    const incoming = new Image();
-    incoming.src = source;
+    exampleFrame.setAttribute('aria-busy', 'true');
+    exampleButtons.forEach(item => item.classList.toggle('is-pending', item === button));
+    exampleStatus.textContent = '正在准备' + button.textContent.trim() + '…';
     try {
-      await incoming.decode();
+      await loadExample(source);
       if (request !== exampleRequest) return;
-      exampleAnimation?.cancel();
-      exampleImage.src = source;
-      exampleImage.alt = button.textContent + '预览';
-      exampleImage.style.visibility = 'visible';
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        exampleAnimation = exampleImage.animate(
-          [{opacity:0, transform:'translateY(8px)'}, {opacity:1, transform:'translateY(0)'}],
-          {duration:480, easing:'cubic-bezier(.22,.68,.3,1)'}
-        );
+      // Retarget persistent image layers from their currently rendered opacity.
+      // Four choices bound the layer count; rapid reversal never resets a fade.
+      let layer = exampleLayers.get(source);
+      if (!layer) {
+        layer = exampleLayers.size ? exampleImage.cloneNode() : exampleImage;
+        layer.className = '';
+        layer.src = source;
+        layer.style.visibility = 'visible';
+        layer.alt = '';
+        layer.setAttribute('aria-hidden', 'true');
+        if (exampleLayers.size) exampleFrame.append(layer);
+        exampleLayers.set(source, layer);
+        layer.getBoundingClientRect(); // Establish opacity:0 before the first transition.
       }
+      exampleImage = layer;
+      displayedExample = button;
+      for (const [key, image] of exampleLayers) {
+        const active = key === source;
+        image.classList.toggle('is-current', active);
+        image.setAttribute('aria-hidden', String(!active));
+        image.alt = active ? button.textContent.trim() + '预览' : '';
+      }
+      exampleButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      exampleStatus.textContent = '当前案例：' + button.textContent.trim();
+
     } catch {
-      if (request === exampleRequest) requestedExample = '';
+      if (request === exampleRequest) {
+        requestedExample = '';
+        exampleStatus.textContent = '图片暂未载入，已保留当前案例。再次点击该案例重试。';
+      }
     } finally {
-      if (request === exampleRequest) exampleImage.parentElement.removeAttribute('aria-busy');
+      if (request === exampleRequest) {
+        exampleFrame.removeAttribute('aria-busy');
+        exampleButtons.forEach(item => item.classList.remove('is-pending'));
+      }
     }
   }
+
   const exampleObserver = new IntersectionObserver(entries => {
     if (!entries.some(entry => entry.isIntersecting)) return;
     if (!requestedExample) previewExample(exampleButtons.find(button => button.getAttribute('aria-pressed') === 'true'));
@@ -406,11 +210,23 @@
   exampleObserver.observe(exampleImage.parentElement);
   for (const button of exampleButtons) {
     button.addEventListener('click', () => previewExample(button));
-    button.addEventListener('focus', () => previewExample(button));
     button.addEventListener('pointerenter', event => {
-      if (event.pointerType !== 'touch') previewExample(button);
+      if (event.pointerType === 'mouse') loadExample(button.dataset.preview).catch(() => {});
     });
   }
+  $('.example-list').addEventListener('keydown', event => {
+    const index = exampleButtons.indexOf(document.activeElement);
+    if (index < 0) return;
+    let selected = index;
+    if (event.key === 'ArrowRight') selected = (index + 1) % exampleButtons.length;
+    else if (event.key === 'ArrowLeft') selected = (index + exampleButtons.length - 1) % exampleButtons.length;
+    else if (event.key === 'Home') selected = 0;
+    else if (event.key === 'End') selected = exampleButtons.length - 1;
+    else return;
+    event.preventDefault();
+    exampleButtons[selected].focus({preventScroll:true});
+    previewExample(exampleButtons[selected]);
+  });
   const exampleViewer = $('.example-viewer');
   const viewerImage = $('.example-viewer-scroll img');
   const viewerScroll = $('.example-viewer-scroll');
@@ -426,12 +242,15 @@
     viewerImage.alt = exampleImage.alt;
     $('.example-viewer-title').textContent = exampleImage.alt;
     setViewerScale(1);
+    if (!displayedExample) return;
+    exampleViewer.showModal();
     viewerScroll.scrollTop = 0;
     viewerScroll.scrollLeft = 0;
-    exampleViewer.showModal();
-    $('.example-close').focus();
+    if (!reduced.matches) exampleViewer.animate([{opacity:0}, {opacity:1}], {duration:200, easing:'ease-out'});
+    $('.example-close').focus({preventScroll:true});
   });
   $('.example-close').addEventListener('click', () => exampleViewer.close());
+  exampleViewer.addEventListener('close', () => $('.example-enlarge').focus({preventScroll:true}));
   $('.example-zoom-in').addEventListener('click', () => setViewerScale(viewerScale + 0.5));
   $('.example-zoom-out').addEventListener('click', () => setViewerScale(viewerScale - 0.5));
   const compact = $('.compact-rail details');
@@ -484,7 +303,123 @@
     });
   }
   document.fonts.ready.then(syncWorkshop);
+  // Every chapter uses one continuous, interruptible journey; no distance-based teleport.
+  let navigationTarget = null;
+  let navigationFrame = 0;
+  let arrivalTarget = null;
+  let arrivalTimer = 0;
+  function clearArrival() {
+    clearTimeout(arrivalTimer);
+    arrivalTarget?.classList.remove('nav-arrival');
+    arrivalTarget = null;
+  }
+  function showArrival(target) {
+    clearArrival();
+    if (reduced.matches || !target.matches('h1,h2')) return;
+    arrivalTarget = target;
+    target.classList.add('nav-arrival');
+    arrivalTimer = setTimeout(clearArrival, 850);
+  }
+  function cancelNavigation() {
+    clearArrival();
+    cancelAnimationFrame(navigationFrame);
+    navigationFrame = 0;
+    navigationTarget = null;
+    queuePosition();
+  }
+  function navigateTo(id, {updateHash = true, focus = true} = {}) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    cancelNavigation();
+    settleHome();
+    closeMenu(false);
+    const style = getComputedStyle(target);
+    const inset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+    const margin = parseFloat(style.scrollMarginTop) || 0;
+    const start = scrollY;
+    const destination = Math.max(0, Math.min(start + target.getBoundingClientRect().top - inset - margin,
+      document.documentElement.scrollHeight - innerHeight));
+    const distance = destination - start;
+    if (updateHash && location.hash !== '#' + id) history.pushState(null, '', '#' + id);
+    function arrive() {
+      navigationFrame = 0;
+      navigationTarget = null;
+      if (focus) {
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({preventScroll:true});
+      }
+      showArrival(target);
+      queuePosition();
+    }
+    navigationTarget = id;
+    markPosition();
+    if (reduced.matches || Math.abs(distance) < 1) {
+      window.scrollTo({top:destination, behavior:'instant'});
+      arrive();
+      return;
+    }
+    const began = performance.now();
+    const screens = Math.abs(distance) / Math.max(1, innerHeight);
+    const duration = Math.min(1600, 380 + 260 * Math.sqrt(screens));
+    function move(now) {
+      const t = Math.min(1, (now - began) / duration);
+      // Zero speed and acceleration at both ends avoids a shove at the start or stop.
+      const progress = t * t * t * (10 + t * (-15 + 6 * t));
+      window.scrollTo({top:start + distance * progress, behavior:'instant'});
+      if (t < 1) navigationFrame = requestAnimationFrame(move);
+      else arrive();
+    }
+    navigationFrame = requestAnimationFrame(move);
+  }
+  window.tasteNavigation = {go:navigateTo};
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.hasAttribute('download') || link.target) return;
+    const id = link.hash.slice(1);
+    if (!document.getElementById(id)) return;
+    // Case links use the native anchor: history, focus and scrolling also work without our animation loop.
+    if (id === 'examples') {
+      cancelNavigation();
+      closeMenu(false);
+      return;
+    }
+    event.preventDefault();
+    navigateTo(id);
+  });
+  for (const type of ['wheel', 'touchstart', 'pointerdown']) addEventListener(type, cancelNavigation, {passive:true});
+  addEventListener('keydown', event => {
+    if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End','Escape','Tab',' '].includes(event.key)) cancelNavigation();
+  });
+  addEventListener('popstate', cancelNavigation);
+  addEventListener('resize', cancelNavigation);
+  reduced.addEventListener('change', () => {
+    const id = navigationTarget;
+    if (reduced.matches && id) navigateTo(id, {updateHash:false, focus:false});
+    else cancelNavigation();
+  });
   let scrollQueued = false;
+  const chapterNavs = [$('.rail nav'), compact.querySelector('nav')];
+  function updateDirectory(id) {
+    const hash = '#' + id;
+    for (const nav of chapterNavs) {
+      const link = chapterLinks.find(item => item.hash === hash && nav.contains(item));
+      const last = nav.querySelector('[aria-current]');
+      if (last !== link) {
+        last?.removeAttribute('aria-current');
+        link?.setAttribute('aria-current', 'location');
+      }
+      nav.toggleAttribute('data-marked', !!link);
+      if (link && nav.clientHeight) {
+        const y = link.getBoundingClientRect().top - nav.getBoundingClientRect().top - nav.clientTop + nav.scrollTop + (link.offsetHeight - 14) / 2;
+        nav.style.setProperty('--marker-y', y + 'px');
+      }
+    }
+    const label = (chapterNavs[0].querySelector('[aria-current]') || chapterLinks[0]).textContent.trim();
+    if (compactSummary.textContent !== label) compactSummary.textContent = label;
+  }
+  compact.addEventListener('toggle', queuePosition);
+  document.fonts.ready.then(queuePosition);
+
   function markPosition() {
     scrollQueued = false;
     syncWorkshop();
@@ -493,17 +428,15 @@
     const passed = headings.filter(h => h.getBoundingClientRect().top <= threshold + parseFloat(getComputedStyle(h).scrollMarginTop));
     const id = passed.at(-1)?.id;
     const atEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 3;
-    const active = atEnd ? 'question' : id;
-    const headerSection = active === 'examples' ? '#examples' :
+    const active = navigationTarget || (atEnd ? 'question' : id);
+    const headerSection = active === 'top' ? '#top' : active === 'examples' ? '#examples' :
+      ['workflow','studio','preferences'].includes(active) || active?.startsWith('flow-') ? '#workflow' :
       active && active !== 'question' ? '#article' : active === 'question' ? '' : '#top';
     for (const link of headerLinks) {
       if (link.hash === headerSection) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     }
-    for (const link of chapterLinks) {
-      if (link.hash === '#' + active) link.setAttribute('aria-current','location');
-      else link.removeAttribute('aria-current');
-    }
+    updateDirectory(active?.startsWith('flow-') ? 'workflow' : active);
 
   }
   function queuePosition() {
