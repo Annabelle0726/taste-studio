@@ -46,12 +46,19 @@ h2:focus{outline:none} ::selection{background:#edd3d2}
 .mast-inner{position:relative;height:100%;display:flex;align-items:center;justify-content:space-between}
 .mast-inner::after{content:"";position:absolute;inset:auto 0 0;height:1px;background:var(--rule);pointer-events:none}
 .mast.at-top .mast-inner::after{background:var(--gold)}
-.wordmark{position:relative;white-space:nowrap;font:400 clamp(24px,2.25vw,35px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.065em;color:#47101b}
+.wordmark{position:relative;white-space:nowrap;font:400 clamp(24px,2.25vw,35px)/1 Georgia,"Times New Roman",serif;letter-spacing:-.065em;color:#821222}
+/* The label keeps the original responsive link dimensions. */
+.wordmark>span{opacity:0}
+.wordmark>img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:left center}
 .wordmark::after{
   content:"";position:absolute;bottom:-.16em;
   width:2.85em;aspect-ratio:90 / 22;
-  background:url("wordmark-flourish.svg") center / contain no-repeat;
+  background:url("wordmark-flourish.svg?v=red") center / contain no-repeat;
   pointer-events:none;
+}
+@media(forced-colors:active){
+  .wordmark>span{opacity:1}
+  .wordmark>img,.wordmark::after{display:none}
 }
 .mast nav{display:flex;align-items:center;gap:clamp(12px,1.8vw,26px);font-size:16px;color:var(--ink)}
 .mast .home-link{justify-content:center}
