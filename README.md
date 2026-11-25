@@ -85,7 +85,7 @@
 
 ## 让偏好有具体的来处
 
-![从花瓣水珠到不同花店界面：指出喜欢的具体细节，再讨论下一步设计。此图为概念示意。](assets/readme/design-choice.png)
+![](assets/readme/绯红舞台.gif)
 
 「我想留住花瓣边缘的水珠」比一个笼统的风格标签更能指导下一稿。Taste Studio 把原话、所指的画面细节和当时的项目场景放在一起，另写一句设计解读。
 
@@ -214,3 +214,6 @@ python skills/taste-studio/scripts/draw_seeds.py 3
 | [`assets/readme/`](assets/readme/) | 本页封面、语言标识、GIF 与可编辑素材。 |
 
 设计方法的阅读起点是 [Anshu Chimala：How to turn your AI into a world-class designer](https://www.lennysnewsletter.com/p/how-to-turn-your-ai-into-a-world)。这个项目继续关心的是，最初打动人的东西，怎样在一次次修改之后仍然留在页面里。
+
+
+![从花瓣水珠到不同花店界面：指出喜欢的具体细节，再讨论下一步设计。此图为概念示意。](assets/readme/design-choice.png)
