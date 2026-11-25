@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme/cover.png" width="100%" alt="Taste Studio：用多种草图探索设计，让你的感受与选择决定方向。红纱与项目真实首页组成封面。">
+  <img src="assets/readme/landing.png" width="100%" alt="Taste Studio：用多种草图探索设计，让你的感受与选择决定方向。新版首页以洋牡丹花园环绕标题「从一点喜欢，长成你的设计」。">
 </p>
 
 <p align="center">
@@ -18,7 +18,9 @@
 **推荐作为 Codex Skill 使用，搭配具备较强图像生成与图像编辑能力的工作环境。** 比较构图、材质和视觉气氛需要生图；沿着选定方向保留细节，需要基于参考图继续编辑。安装 Skill 本身不会附带这些能力，请确认当前环境可以调用相应工具。其他支持技能的工具也可以加载，但具体能力与效果需要分别验证。
 
 <details>
-<summary>查看静态品牌封面</summary>
+<summary>查看手机首页与品牌封面</summary>
+
+<img src="assets/readme/landing-mobile.png" width="260" alt="新版手机首页与设计流程入口">
 
 ![红纱、金线与手作书组成的 Taste Studio 品牌封面。](assets/readme/editorial-cover.png)
 
@@ -26,34 +28,44 @@
 
 ## 一次设计怎样发生
 
-以花店首页为例，从「下班路上来取花」的场景，一路走到页面里的取花入口。下面把项目中的图像与交互过程重新编排成四步流程示意。
+以花店首页为例，从「下班路上来取花」的场景，一路走到页面里的取花入口。新版网页把设计过程做成五个可切换的步骤。
 
-![设计流程演示：写简报、比较三张草图、选中花瓣水珠、在页面中对照并打开取花信息。](assets/readme/workflow.gif)
+![设计流程演示：写简报、看草图、选细节、试页面、独立评审，并比较示例修正前后的状态。](assets/readme/workflow.gif)
 
 1. **写简报** — 先弄清谁会打开页面、要知道什么、要完成什么动作。
 2. **看草图** — 同一份内容，探索三到四种构图与视觉重心，放在一起比较。
 3. **选细节** — 先听你的感受，再讨论方向。喜欢什么、想改什么，都可以从一个具体细节说起。
 4. **试页面** — 把选择落实到页面，检查图片裁切、文字、按钮和反馈，也检查那个打动你的细节。
 
+5. **独立评审** — 在适合的任务中，请未参与本轮设计与实现的评审者按访客的路径试用。演示用切换花材后介绍未同步的问题，说明如何定位、修正并复验。
+
 说不清原因也可以。先指出让你愿意多看一眼的地方。
 
 <details>
 <summary>查看静态流程画面</summary>
 
-![三种花店首页草图并排比较。](assets/readme/source/workflow-2.png)
+![三种花店首页草图并排比较。](assets/readme/workflow-sketches.png)
 
 </details>
 
+## 在网页里试一次
+
+切换洋牡丹、白绣球或郁金香，观察桌面和手机预览的图片与介绍同步更新。选择「到店取花」，查看当前花材对应的演示信息。
+
+![实际花店演示页面切换到白绣球后的状态。](assets/readme/flower-preview.png)
+
+[打开互动花店](https://annabelle0726.github.io/taste-studio/#studio) · [查看独立评审的修正后画面](assets/readme/workflow-review.png)
+
 ## 四种页面，各有自己的任务
 
-同一组奶油白、酒红和暖金，进入不同的内容与使用场景。下方展示四种页面的设计预览；展开后可以播放网站中的案例切换演示。
+同一组奶油白、酒红和暖金，进入不同的内容与使用场景。下方展示四种页面的设计预览；展开后可以看到新版案例区的切换、查看大图与放大操作。
 
 ![作品集、产品页、创作者主页与活动页的视觉案例。设计预览，不代表所有案例都已实现。](assets/readme/website-showcase.png)
 
 <details>
 <summary>播放四种案例的切换演示</summary>
 
-![切换个人作品集、产品介绍页、创作者主页与活动报名页四个案例。](assets/readme/examples.gif)
+![在实际案例区切换四张设计预览，并打开大图放大查看。](assets/readme/examples.gif)
 
 </details>
 
@@ -67,7 +79,7 @@
 <details>
 <summary>查看静态案例画面</summary>
 
-![创作者主页：石榴与果皮双图、日期手记以及包含材料的作品目录。](assets/readme/source/case-creator.png)
+![活动报名页在网页大图查看器中放大后的画面。](assets/readme/case-viewer.png)
 
 </details>
 
@@ -89,6 +101,8 @@
 - **把选定方向写下来。** 沿用项目已有设计规范；多页面或多组件项目没有规范时，建立简短的 `DESIGN.md`，记录字体、配色、间距、控件状态和想保留的细节。
 - **参考有依据，内容有来源。** 按当前任务选择设计参考，说明借鉴的具体特征，不编造客户数量、评价或背书。
 - **在真实页面里复查。** 对照桌面与手机视图，走一遍主要操作，检查分段留白、渐进显现和动效；记录已经验证的结果与尚未测试的部分。
+
+![](assets/readme/换双眼睛再看一次.png)
 
 详见 [最新技能说明](skills/taste-studio/SKILL.md) 和 [设计参考](skills/taste-studio/references/design-references.md)。
 
@@ -188,9 +202,12 @@ python skills/taste-studio/scripts/draw_seeds.py 3
 
 ## 项目结构
 
+![](assets/readme/让喜欢留在最后一页.png)
+
+
 | 位置 | 内容 |
 | --- | --- |
-| [`index.html`](index.html) | 中文文章、设计步骤和案例展示。 |
+| [`index.html`](index.html) | 新版落地页、中文文章、五步流程、花店交互和案例展示。 |
 | [`assets/site.css`](assets/site.css) | 配色、排版、响应式布局和动效样式。 |
 | [`assets/site.js`](assets/site.js) | 页面导航、步骤切换、演示交互和图片显现。 |
 | [`skills/taste-studio/`](skills/taste-studio/) | 设计技能与 Python 创意线索工具。 |
