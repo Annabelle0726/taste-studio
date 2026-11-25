@@ -1,13 +1,42 @@
 /* Selected peony garden: photographic background and independent live UI. */
 :root{--home-sans:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;--home-paper:#fcf0e0;--head:58px}
-.home-landing{position:relative;isolation:isolate;height:100svh;margin-top:calc(-1 * var(--head));background:var(--home-paper);display:flex;justify-content:center;align-items:center}
-.home-image{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;mask-image:linear-gradient(transparent,#000 12%)}
+.home-landing{
+ --home-edge-height:clamp(16px,2.1vw,34px);
+ position:relative;isolation:isolate;height:100svh;
+ margin-top:calc(-1 * var(--head));margin-bottom:var(--home-edge-height);
+ background:var(--home-paper);display:flex;justify-content:center;align-items:center
+}
+/* Continue the same photograph under the curved edge, below the first screen. */
+.home-image{position:absolute;inset:0 0 calc(-1 * var(--home-edge-height));z-index:-1;pointer-events:none;overflow:hidden;mask-image:linear-gradient(transparent,#000 12%)}
 .home-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;position:absolute;inset:0;animation:home-photo-settle 500ms ease-out both}
 @keyframes home-photo-settle{from{opacity:.88}to{opacity:1}}
 
 .home-content{position:relative;width:min(90%,900px);margin:0 auto;text-align:center}
-.home-content h1{font:400 clamp(44px,5.2vw,82px)/1.28 var(--serif);letter-spacing:-.035em;color:#490c17}.home-content h1 span{display:block}
+.home-content h1{font:400 clamp(44px,5.2vw,82px)/1.28 var(--serif);letter-spacing:-.035em;color:#490c17}
+.home-title-line{display:block}
+.home-title-line:first-child{transform:translateX(-.12em)}
+.home-title-line:last-child{transform:translateX(.12em)}
+.home-title-highlight{display:inline-block;color:#9b2442}
+@supports(background-clip:text){
+ .home-title-highlight{
+  color:transparent;background:linear-gradient(105deg,#88203b 0%,#ac2949 48%,#b73952 78%,#a52a46 100%);
+  background-clip:text;filter:drop-shadow(0 .016em .024em #6c13302c)
+ }
+}
+.home-title-growth{position:relative;display:inline-block}
+.home-title-growth svg{
+ position:absolute;left:-.06em;bottom:-.015em;width:calc(100% + .12em);height:.15em;
+ fill:#a51c3b;pointer-events:none
+}
 .home-description{margin-top:26px;font:400 clamp(16px,1.65vw,25px)/1.75 var(--home-sans);color:#513822;text-wrap:balance}
+.home-description strong{font-weight:650;color:#4b2924}
+.home-paper-edge{position:absolute;inset:100% 0 auto;width:100%;height:calc(var(--home-edge-height) + 1px);display:block;fill:var(--cream);pointer-events:none}
+.home-paper-rim{fill:none;stroke:#fff8ef;stroke-width:1;opacity:.85}
+@media(forced-colors:active){
+ .home-landing{--home-edge-height:0px}
+ .home-title-highlight{background:none;color:CanvasText;filter:none}
+ .home-title-growth svg,.home-paper-edge{display:none}
+}
 .home-actions{display:flex;align-items:center;justify-content:center;gap:clamp(28px,3.5vw,56px);margin-top:38px;font:400 clamp(15px,1.6vw,23px)/1.5 var(--home-sans)}
 .home-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:52px;touch-action:manipulation}
 .home-primary{gap:14px;padding:12px 28px;border:1px solid #70112b;border-top-color:#c76476;border-radius:999px;color:#fff7ed;background:linear-gradient(175deg,#a31f40 0%,#85122f 32%,#590d21 100%);box-shadow:inset 0 1px 0 #ffc3cf50,inset 0 -1px 1px #34051255,0 5px 12px #30251f24,0 1px 2px #30251f26;transition:box-shadow 160ms,filter 160ms,transform 120ms}
@@ -29,6 +58,7 @@
  .mast.at-top{background:var(--home-paper)}
  .mast-inner{width:calc(100% - 32px)}.mast .wordmark{font-size:22px}.mast .wordmark::after{width:2.1em}.mast nav{gap:2px;font-size:12px}.mast nav a,.mast nav a[href="#workflow"]{width:38px;min-height:44px;justify-content:center}.mast nav .home-link{width:38px}.mast nav a span{display:none}.mast nav svg{width:16px;height:16px}
  .home-content{width:100%;padding:0 20px}.home-content h1{font-size:clamp(38px,9.8vw,58px);line-height:1.38}
+ .home-title-line:first-child,.home-title-line:last-child{transform:none}
  .home-description{max-width:21em;margin:22px auto 0;font-size:15px;line-height:1.85}.home-actions{margin-top:28px;gap:25px;font-size:15px}.home-primary{padding:12px 21px;gap:12px}
  .home-image{top:15%;background:var(--home-paper);mask-image:linear-gradient(transparent,#000 24%)}.home-image img{height:135%;top:auto;bottom:0;object-position:50% 100%}
 }
